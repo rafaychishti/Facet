@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/* ───────────────────────── Facet design tokens ─────────────────────────
+   Palette pulled from the TDA reference (navy-black + electric blue) with
+   FXIFY's violet / green / red accents for analytics. */
+:root {
+  --bg: #03040c;
+  --bg-2: #060818;
+  --panel: #0a0d22;
+  --panel-2: #0e1230;
+  --line: rgba(124, 140, 255, 0.12);
+  --line-strong: rgba(124, 140, 255, 0.24);
+  --text: #e9ecff;
+  --muted: #8b91b8;
+  --dim: #5a6088;
+  --blue: #2f4bff;
+  --blue-2: #4d6bff;
+  --blue-glow: #6f8bff;
+  --violet: #8b6cff;
+  --up: #2fe0a0;
+  --down: #ff4d6d;
+  --warn: #ffb547;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-2: var(--bg-2);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-dim: var(--dim);
+  --color-blue: var(--blue);
+  --color-blue-2: var(--blue-2);
+  --color-blue-glow: var(--blue-glow);
+  --color-violet: var(--violet);
+  --color-up: var(--up);
+  --color-down: var(--down);
+  --color-warn: var(--warn);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+}
+
+html {
+  color-scheme: dark;
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: rgba(47, 75, 255, 0.45);
+}
+
+/* Italic serif accent used in headings: "Transforming Asset <em>Solutions</em>" */
+.accent {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* Glass card — the core surface in both references */
+.glass {
+  position: relative;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01)),
+    rgba(10, 13, 34, 0.72);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  backdrop-filter: blur(14px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 20px 60px -30px rgba(0, 0, 0, 0.8);
+}
+
+.glass-glow::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, rgba(111, 139, 255, 0.55), transparent 40%, transparent 70%, rgba(139, 108, 255, 0.35));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.btn-primary {
+  background: linear-gradient(180deg, #4d6bff, #2f4bff);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    0 8px 24px -8px rgba(47, 75, 255, 0.8);
+}
+.btn-primary:hover {
+  filter: brightness(1.1);
+}
+
+.grid-floor {
+  background-image:
+    linear-gradient(rgba(124, 140, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 140, 255, 0.06) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+
+.spot-blue {
+  background: radial-gradient(60% 50% at 50% 0%, rgba(47, 75, 255, 0.28), transparent 70%);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(124, 140, 255, 0.25) transparent;
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-ticker {
+  animation: ticker 60s linear infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+.fade-up {
+  animation: fade-up 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-ticker, .fade-up { animation: none; }
+}
